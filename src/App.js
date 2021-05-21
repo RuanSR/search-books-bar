@@ -1,8 +1,16 @@
-import './assets/App.css';
+import "./components/SearchBar";
+import "./assets/App.css";
+
+import Books from "./components/Books";
+import Header from "./components/Header";
+
 
 function App() {
   return (
-    <h1>Search Books</h1>
+    <div className="App">
+      <Header/>
+      <Books/>
+    </div>
   );
 }
 
