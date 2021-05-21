@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import SearchBar from "../SearchBar";
+
+import Table from "../BookTable/Table";
 
 function Books() {
-  const [livros, setLivros] = useState([]);
-  const searchBook = (data) => {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${data.searchField}}`)
-      .then(response => response.json())
-      .then(response => {
-        setLivros(response.items);
-        console.log(response.items);
-      })
-  };
+  const [searchField, setSearchField] = useState("");
+  
   return (
     <div>
-      <SearchBar onSubmit={searchBook} />
-      <SearchList props={livros}/>
+      <input
+        onChange={(e) => {
+          setSearchField(e.target.value);          
+        }}
+        type="text"
+      />
+      <Table busca={searchField} />
     </div>
   );
 }

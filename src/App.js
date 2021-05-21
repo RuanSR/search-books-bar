@@ -1,4 +1,3 @@
-import "./components/SearchBar";
 import "./assets/App.css";
 
 import Books from "./components/Books";
