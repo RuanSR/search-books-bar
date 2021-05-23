@@ -4,14 +4,16 @@ import Table from "../BookTable/Table";
 
 function Books() {
   const [searchField, setSearchField] = useState("");
-  
+
   return (
-    <div>
+    <div className="container">
       <input
         onChange={(e) => {
-          setSearchField(e.target.value);          
+          setSearchField(e.target.value);
         }}
+        className="form-control m-2"
         type="text"
+        placeholder="Digite o nome do livro"
       />
       <Table busca={searchField} />
     </div>
