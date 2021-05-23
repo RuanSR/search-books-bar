@@ -26,6 +26,7 @@ function Table(props) {
                   image={book.volumeInfo.imageLinks.thumbnail}
                   title={book.volumeInfo.title}
                   subtitle={book.volumeInfo.subtitle}
+                  description={book.volumeInfo.description}
                   publishedDate={book.volumeInfo.publishedDate}
                 />
               ) : (
