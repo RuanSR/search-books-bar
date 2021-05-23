@@ -7,12 +7,12 @@ function Table(props) {
   const [books, setLivros] = useState([]);
 
   useEffect(() => {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${props.busca}}`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${props.busca}}&maxResults=${props.maxResults}&startIndex=${props.next}`)
       .then((response) => response.json())
       .then((response) => {
         setLivros(response.items);
       });
-  }, [props.busca]);
+  }, [props.next, props.busca]);
 
   return (
     <div className="container-fluid">

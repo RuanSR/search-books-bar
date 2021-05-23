@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 
+import { Button } from "react-bootstrap/";
 import Table from "../BookTable/Table";
 
 function Books() {
   const [searchField, setSearchField] = useState("");
+  const [next, setNext] = useState(0);
+  const [maxResults, setMaxResults] = useState(5);
 
   return (
     <div className="container">
@@ -15,7 +18,8 @@ function Books() {
         type="text"
         placeholder="Digite o nome do livro"
       />
-      <Table busca={searchField} />
+      <Button variant="info" onClick={()=> {setNext(next+maxResults)}}>Próximos Resultados</Button>
+      <Table busca={searchField} next={next} maxResults={maxResults}/>
     </div>
   );
 }
