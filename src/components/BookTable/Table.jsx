@@ -7,7 +7,9 @@ function Table(props) {
   const [books, setLivros] = useState([]);
 
   useEffect(() => {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${props.busca}}&maxResults=${props.maxResults}&startIndex=${props.next}`)
+    fetch(
+      `https://www.googleapis.com/books/v1/volumes?q=${props.busca}}&maxResults=${props.maxResults}&startIndex=${props.next}`
+    )
       .then((response) => response.json())
       .then((response) => {
         setLivros(response.items);
@@ -23,6 +25,8 @@ function Table(props) {
               {book.volumeInfo.imageLinks ? (
                 <BookCard
                   key={index}
+                  handleFavorites={props.handleFavorites}
+                  id={book.id}
                   image={book.volumeInfo.imageLinks.thumbnail}
                   title={book.volumeInfo.title}
                   subtitle={book.volumeInfo.subtitle}
@@ -32,6 +36,8 @@ function Table(props) {
               ) : (
                 <BookCard
                   key={index}
+                  handleFavorites={props.handleFavorites}
+                  id={book.id}
                   image={NoImage}
                   title={book.volumeInfo.title}
                   subtitle={book.volumeInfo.subtitle}
