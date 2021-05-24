@@ -38,8 +38,8 @@ function BookCard(props) {
 
   return (
     <>
-      <Card style={{ maxWidth: "18rem" }}>
-        <Card.Img variant="top" src={props.image} />
+      <Card style={{ maxWidth: "15rem"}}>
+        <Image variant="top" src={props.image} style={{maxWidth: '250px', maxHeight: '250px'}} thumbnail />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>

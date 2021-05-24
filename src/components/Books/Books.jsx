@@ -11,13 +11,14 @@ import {
   Button,
   Modal,
 } from "react-bootstrap/";
+
 import Table from "../BookTable/Table";
 
 function Books() {
   const [show, setShow] = useState(false);
   const [searchField, setSearchField] = useState("");
   const [next, setNext] = useState(0);
-  const [maxResults] = useState(5);
+  const [maxResults] = useState(4);
   const [favoriteBooks, setFavoriteBooks] = useState([]);
 
   const handleClose = () => setShow(false);
@@ -44,31 +45,42 @@ function Books() {
 
   return (
     <div className="container">
-      <input
-        onChange={(e) => {
-          setSearchField(e.target.value);
-        }}
-        className="form-control m-2"
-        type="text"
-        placeholder="Digite o nome do livro"
-      />
-      <Button
-        variant="info"
-        onClick={() => {
-          setNext(next + maxResults);
-        }}
-      >
-        Próximos Resultados
-      </Button>
-      <Button variant="info" onClick={handleShow}>
-        Favoritos
-      </Button>
-      <Table
-        busca={searchField}
-        next={next}
-        maxResults={maxResults}
-        handleFavorites={handleAddFavorites}
-      />
+      <div className="row justify-content-center">
+        <div className="col-auto ">
+          <div className="container d-inline-flex">
+          
+          <input
+            onChange={(e) => {
+              setSearchField(e.target.value);
+            }}
+            className="form-control m-2"
+            type="text"
+            placeholder="Digite o nome do livro"
+          />
+          <Button variant="outline-success" onClick={handleShow}>
+            Favoritos
+          </Button>
+
+          </div>
+        </div>
+        <div className="col-auto">
+          <Table
+            busca={searchField}
+            next={next}
+            maxResults={maxResults}
+            handleFavorites={handleAddFavorites}
+          />
+          <Button
+          className="m-5"
+            variant="outline-secondary"
+            onClick={() => {
+              setNext(next + maxResults);
+            }}
+          >
+            Próximos Resultados
+          </Button>
+        </div>
+      </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
