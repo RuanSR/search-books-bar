@@ -5,6 +5,7 @@ import NoImage from "../../assets/img/no-image.png";
 
 function Table(props) {
   const [books, setLivros] = useState([]);
+  let book;
 
   useEffect(() => {
     fetch(
@@ -19,31 +20,37 @@ function Table(props) {
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
-        {books.map((book, index) => {
+        {books.map((bookResponse, index) => {
           return (
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-8 p-1">
-              {book.volumeInfo.imageLinks ? (
-                <BookCard
-                  key={index}
-                  handleFavorites={props.handleFavorites}
-                  id={book.id}
-                  image={book.volumeInfo.imageLinks.thumbnail}
-                  title={book.volumeInfo.title}
-                  subtitle={book.volumeInfo.subtitle}
-                  description={book.volumeInfo.description}
-                  publishedDate={book.volumeInfo.publishedDate}
-                />
-              ) : (
-                <BookCard
-                  key={index}
-                  handleFavorites={props.handleFavorites}
-                  id={book.id}
-                  image={NoImage}
-                  title={book.volumeInfo.title}
-                  subtitle={book.volumeInfo.subtitle}
-                  publishedDate={book.volumeInfo.publishedDate}
-                />
-              )}
+              {
+                ((book = {
+                  image: bookResponse.volumeInfo.imageLinks
+                    ? bookResponse.volumeInfo.imageLinks.thumbnail
+                    : NoImage,
+                  title: bookResponse.volumeInfo.title
+                    ? bookResponse.volumeInfo.title
+                    : "Sem título",
+                  subtitle: bookResponse.volumeInfo.subtitle
+                    ? bookResponse.volumeInfo.subtitle
+                    : "Sem subtitulo",
+                  description: bookResponse.volumeInfo.description
+                    ? bookResponse.volumeInfo.description
+                    : "Sem descrição",
+                }),
+                (
+                  <BookCard
+                    key={index}
+                    handleFavorites={props.handleFavorites}
+                    id={bookResponse.id}
+                    image={book.image}
+                    title={book.title}
+                    subtitle={book.subtitle}
+                    description={book.description}
+                    publishedDate={bookResponse.volumeInfo.publishedDate}
+                  />
+                ))
+              }
             </div>
           );
         })}

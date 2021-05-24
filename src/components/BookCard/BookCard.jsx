@@ -43,7 +43,6 @@ function BookCard(props) {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>
-            <h5>Subtítulo</h5>
             <p>{props.subtitle}</p>
             <p>Data de publicação: {props.publishedDate}</p>
           </Card.Text>
