@@ -12,26 +12,25 @@ import {
 
 function BookCard(props) {
   const [show, setShow] = useState(false);
-  const [myBook] = useState(props);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSave = () => {
     localStorage.setItem(
-      myBook.id,
+      props.id,
       JSON.stringify({
-        id: myBook.id,
-        image: myBook.image,
-        title: myBook.title,
-        subtitle: myBook.subtitle,
-        description: myBook.description,
-        publishedDate: myBook.publishedDate,
+        id: props.id,
+        image: props.image,
+        title: props.title,
+        subtitle: props.subtitle,
+        description: props.description,
+        publishedDate: props.publishedDate,
         addedIn: new Date().toLocaleString(),
       })
     );
 
-    props.handleFavorites(myBook.id);
+    props.handleFavorites(props.id);
     {alert('Adicionado com sucesso!')}
     handleClose();
   };
