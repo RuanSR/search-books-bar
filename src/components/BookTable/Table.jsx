@@ -1,60 +1,62 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-return-assign */
+import React, { useState, useEffect } from 'react';
 
-import BookServices from "../../api/BookServices";
+import BookServices from '../../api/BookServices';
 
-import BookCard from "../BookCard/BookCard";
-import NoImage from "../../assets/img/no-image.png";
+import BookCard from '../BookCard/BookCard';
+import NoImage from '../../assets/img/no-image.png';
 
 function Table(props) {
-  const [books, setLivros] = useState([]);
-  let book;
+	const [books, setLivros] = useState([]);
+	let book;
 
-  useEffect(() => {
-    BookServices.get(props.busca, props.next,4).then((data) => {
-      setLivros(data.items);
-    });
-  }, [props.busca]);
+	useEffect(() => {
+		BookServices.get(props.busca, props.next, 4).then((data) => {
+			setLivros(data.items);
+		});
+	}, [props.busca]);
 
-  return (
-    <div className="container-fluid">
-      <div className="row justify-content-center">
-        {books?.map((bookResponse, index) => {
-          return (
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-8 p-1">
-              {
-                ((book = {
-                  image: bookResponse.volumeInfo.imageLinks
-                    ? bookResponse.volumeInfo.imageLinks.thumbnail
-                    : NoImage,
-                  title: bookResponse.volumeInfo.title
-                    ? bookResponse.volumeInfo.title
-                    : "Sem título",
-                  subtitle: bookResponse.volumeInfo.subtitle
-                    ? bookResponse.volumeInfo.subtitle
-                    : "Sem subtitulo",
-                  description: bookResponse.volumeInfo.description
-                    ? bookResponse.volumeInfo.description
-                    : "Sem descrição",
-                }),
-                (
-                  <BookCard
-                    key={index}
-                    handleFavorites={props.handleFavorites}
-                    id={bookResponse.id}
-                    image={book.image}
-                    title={book.title}
-                    subtitle={book.subtitle}
-                    description={book.description}
-                    publishedDate={bookResponse.volumeInfo.publishedDate}
-                  />
-                ))
-              }
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+	return (
+		<div className="container-fluid">
+			<div className="row justify-content-center">
+				{books?.map((bookResponse, index) => (
+					<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-8 p-1">
+						{
+							((book = {
+								image: bookResponse.volumeInfo.imageLinks
+									? bookResponse.volumeInfo.imageLinks.thumbnail
+									: NoImage,
+								title: bookResponse.volumeInfo.title
+									? bookResponse.volumeInfo.title
+									: 'Sem título',
+								subtitle: bookResponse.volumeInfo.subtitle
+									? bookResponse.volumeInfo.subtitle
+									: 'Sem subtitulo',
+								description: bookResponse.volumeInfo.description
+									? bookResponse.volumeInfo.description
+									: 'Sem descrição',
+							}),
+							(
+								<BookCard
+									key={index}
+									handleFavorites={props.handleFavorites}
+									id={bookResponse.id}
+									image={book.image}
+									title={book.title}
+									subtitle={book.subtitle}
+									description={book.description}
+									publishedDate={bookResponse.volumeInfo.publishedDate}
+								/>
+							))
+						}
+					</div>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default Table;
