@@ -3,6 +3,8 @@ import { useBookContext } from '../../hooks/useBookContext';
 import BookCard from '../BookCard/BookCard';
 import NoImage from '../../assets/img/no-image.png';
 
+import { Book as bookItem } from '../../models/Book';
+
 function Table() {
 	const { books } = useBookContext();
 	let book;
@@ -30,12 +32,16 @@ function Table() {
 							(
 								<BookCard
 									key={index}
-									id={bookResponse.id}
-									image={book.image}
-									title={book.title}
-									subtitle={book.subtitle}
-									description={book.description}
-									publishedDate={bookResponse.volumeInfo.publishedDate}
+									book={
+										new bookItem(
+											bookResponse.id,
+											book.image,
+											book.title,
+											book.subtitle,
+											book.description,
+											bookResponse.volumeInfo.publishedDate
+										)
+									}
 								/>
 							))
 						}

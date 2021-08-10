@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import { useMyFavorites } from '../../hooks/useMyFavorites';
 import {
@@ -11,29 +12,35 @@ import {
 	Modal,
 } from 'react-bootstrap/';
 
-function BookCard({id, image, title, subtitle, description, publishedDate}) {
-  const { addFavorite } = useMyFavorites();
+function BookCard({ book }) {
+	const { addFavorite } = useMyFavorites();
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+  const handleOnFavorite = () =>{
+    addFavorite({book});
+    alert('Adicionado com sucesso!');
+    handleClose();
+  }
 
 	return (
 		<>
 			<Card style={{ maxWidth: '15rem' }}>
 				<Image
 					variant="top"
-					src={image}
+					src={book.image}
 					style={{ maxWidth: '250px', maxHeight: '250px' }}
 					thumbnail
 				/>
 				<Card.Body>
-					<Card.Title>{title}</Card.Title>
+					<Card.Title>{book.title}</Card.Title>
 					<Card.Text>
-						<p>{subtitle}</p>
+						<p>{book.subtitle}</p>
 						<p>
 							Data de publicação:
-							{publishedDate}
+							{book.publishedDate}
 						</p>
 					</Card.Text>
 					<Button variant="info" onClick={handleShow}>
@@ -44,7 +51,7 @@ function BookCard({id, image, title, subtitle, description, publishedDate}) {
 
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
-					<Modal.Title>{title}</Modal.Title>
+					<Modal.Title>{book.title}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Container>
@@ -53,22 +60,22 @@ function BookCard({id, image, title, subtitle, description, publishedDate}) {
 								<Media>
 									<Image
 										className="mr-3"
-										src={image}
+										src={book.image}
 										thumbnail
 										alt="thumbnail livro"
 									/>
 									<Media.Body>
 										<h5>Subtítulo</h5>
-										<p>{subtitle}</p>
+										<p>{book.subtitle}</p>
 
 										<h5>Publicado em:</h5>
-										<p>{publishedDate}</p>
+										<p>{book.publishedDate}</p>
 									</Media.Body>
 								</Media>
 							</Col>
 							<Col md="auto">
 								<h1>Descrição</h1>
-								<p>{description}</p>
+								<p>{book.description}</p>
 							</Col>
 						</Row>
 					</Container>
@@ -77,7 +84,7 @@ function BookCard({id, image, title, subtitle, description, publishedDate}) {
 					<Button variant="secondary" onClick={handleClose}>
 						Fechar
 					</Button>
-					<Button variant="success" onClick={() => addFavorite({id, image, title, subtitle, description, publishedDate})}>
+					<Button variant="success" onClick={handleOnFavorite}>
 						Salvar nos favoritos
 					</Button>
 				</Modal.Footer>

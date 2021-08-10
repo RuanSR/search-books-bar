@@ -5,20 +5,12 @@ export const FavoritesBooksContext = createContext([]);
 export function FavoritesBooksProvider({ children }) {
 	const [myFavorotes, setMyFavorotes] = useState([]);
 
-  const addFavorite = ({id, image, title, subtitle, description, publishedDate})=>{
+  const addFavorite = ({book}) =>{
     localStorage.setItem(
-			id,
-			JSON.stringify({
-				id: id,
-				image: image,
-				title: title,
-				subtitle: subtitle,
-				description: description,
-				publishedDate: publishedDate,
-				addedIn: new Date().toLocaleString(),
-			})
+			book.id,
+			JSON.stringify(book),
 		);
-    addFavoriteState(id);
+    addFavoriteState(book.id);
   }
 
 	const addFavoriteState = (bookId) => {
