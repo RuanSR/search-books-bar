@@ -8,30 +8,10 @@ import Table from '../BookTable/Table';
 
 function Books() {
 	const { searchRole, setSearchRole } = useSearchRole();
-	const [favoriteBooks, setFavoriteBooks] = useState([]);
 	const [show, setShow] = useState(false);
 
 	const handleModal = () => {
 		setShow(!show);
-	};
-
-	const handleAddFavorites = (bookId) => {
-		const books = [];
-		for (let i = 0; i < favoriteBooks.length; i++) {
-			books.push(favoriteBooks[i]);
-		}
-		books.push(bookId);
-		setFavoriteBooks(books);
-	};
-
-	const handleRemoveFavorite = (bookId) => {
-		const books = [];
-		for (let i = 0; i < favoriteBooks.length; i++) {
-			books.push(favoriteBooks[i]);
-		}
-		books.pop(bookId);
-		setFavoriteBooks(books);
-		localStorage.removeItem(bookId);
 	};
 
 	const hamdleNextResult = () => {
@@ -66,7 +46,7 @@ function Books() {
 					</div>
 				</div>
 				<div className="col-auto">
-					<Table handleAddFavorites={handleAddFavorites} />
+					<Table />
 					<Button
 						className="m-5"
 						variant="outline-secondary"
@@ -80,8 +60,6 @@ function Books() {
 			<FavoriteModal
         show={show}
         closeModal={handleModal}
-        removeFavorite={handleRemoveFavorite}
-        favoritesBooks={favoriteBooks}
 			/>
 		</div>
 	);

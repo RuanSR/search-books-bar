@@ -3,7 +3,7 @@ import { useBookContext } from '../../hooks/useBookContext';
 import BookCard from '../BookCard/BookCard';
 import NoImage from '../../assets/img/no-image.png';
 
-function Table({handleAddFavorites}) {
+function Table() {
 	const { books } = useBookContext();
 	let book;
 
@@ -30,7 +30,6 @@ function Table({handleAddFavorites}) {
 							(
 								<BookCard
 									key={index}
-									handleFavorites={handleAddFavorites}
 									id={bookResponse.id}
 									image={book.image}
 									title={book.title}

@@ -1,3 +1,6 @@
+import { useMyFavorites } from '../../hooks/useMyFavorites';
+// import {removeFavorite} from '../../Utils/userStorage';
+
 import {
 	Container,
 	Image,
@@ -12,10 +15,10 @@ import {
 
 function FavoriteModal({
 	show,
-	closeModal,
-	removeFavorite,
-	favoritesBooks,
+	closeModal
 }) {
+  const { removeFavorite } = useMyFavorites();
+
 	return (
 		<Modal show={show} onHide={closeModal}>
 			<Modal.Header closeButton>
@@ -25,7 +28,7 @@ function FavoriteModal({
 				<Container>
 					<Row className="justify-content-center">
 						<Col md="auto">
-							{favoritesBooks.map((bookId, index) => (
+							{Object.keys(localStorage).map((bookId, index) => (
 								<CardGroup key={index} className="m-3">
 									<Card>
 										<Card.Body>
@@ -64,7 +67,7 @@ function FavoriteModal({
 												{JSON.parse(localStorage.getItem(bookId)).addedIn}
 											</small>
 										</Card.Footer>
-										<Button variant="danger" onClick={removeFavorite}>
+										<Button variant="danger" onClick={() => removeFavorite(bookId)}>
 											Remover dos favoritos
 										</Button>
 									</Card>

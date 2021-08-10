@@ -1,10 +1,5 @@
-/* eslint-disable no-lone-blocks */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-return-assign */
-
 import React, { useState } from 'react';
+import { useMyFavorites } from '../../hooks/useMyFavorites';
 import {
 	Container,
 	Image,
@@ -16,52 +11,32 @@ import {
 	Modal,
 } from 'react-bootstrap/';
 
-function BookCard(props) {
+function BookCard({id, image, title, subtitle, description, publishedDate}) {
+  const { addFavorite } = useMyFavorites();
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-
-	const handleSave = () => {
-		localStorage.setItem(
-			props.id,
-			JSON.stringify({
-				id: props.id,
-				image: props.image,
-				title: props.title,
-				subtitle: props.subtitle,
-				description: props.description,
-				publishedDate: props.publishedDate,
-				addedIn: new Date().toLocaleString(),
-			})
-		);
-
-		props.handleFavorites(props.id);
-		{
-			alert('Adicionado com sucesso!');
-		}
-		handleClose();
-	};
 
 	return (
 		<>
 			<Card style={{ maxWidth: '15rem' }}>
 				<Image
 					variant="top"
-					src={props.image}
+					src={image}
 					style={{ maxWidth: '250px', maxHeight: '250px' }}
 					thumbnail
 				/>
 				<Card.Body>
-					<Card.Title>{props.title}</Card.Title>
+					<Card.Title>{title}</Card.Title>
 					<Card.Text>
-						<p>{props.subtitle}</p>
+						<p>{subtitle}</p>
 						<p>
 							Data de publicação:
-							{props.publishedDate}
+							{publishedDate}
 						</p>
 					</Card.Text>
-					<Button variant="info" onClick={handleShow} props={props}>
+					<Button variant="info" onClick={handleShow}>
 						Detalhes
 					</Button>
 				</Card.Body>
@@ -69,7 +44,7 @@ function BookCard(props) {
 
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
-					<Modal.Title>{props.title}</Modal.Title>
+					<Modal.Title>{title}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Container>
@@ -78,22 +53,22 @@ function BookCard(props) {
 								<Media>
 									<Image
 										className="mr-3"
-										src={props.image}
+										src={image}
 										thumbnail
 										alt="thumbnail livro"
 									/>
 									<Media.Body>
 										<h5>Subtítulo</h5>
-										<p>{props.subtitle}</p>
+										<p>{subtitle}</p>
 
 										<h5>Publicado em:</h5>
-										<p>{props.publishedDate}</p>
+										<p>{publishedDate}</p>
 									</Media.Body>
 								</Media>
 							</Col>
 							<Col md="auto">
 								<h1>Descrição</h1>
-								<p>{props.description}</p>
+								<p>{description}</p>
 							</Col>
 						</Row>
 					</Container>
@@ -102,7 +77,7 @@ function BookCard(props) {
 					<Button variant="secondary" onClick={handleClose}>
 						Fechar
 					</Button>
-					<Button variant="success" onClick={handleSave}>
+					<Button variant="success" onClick={() => addFavorite({id, image, title, subtitle, description, publishedDate})}>
 						Salvar nos favoritos
 					</Button>
 				</Modal.Footer>
