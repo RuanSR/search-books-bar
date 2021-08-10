@@ -1,23 +1,11 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-return-assign */
-import React, { useState, useEffect } from 'react';
-
-import BookServices from '../../api/BookServices';
+import { useBookContext } from '../../hooks/useBookContext';
 
 import BookCard from '../BookCard/BookCard';
 import NoImage from '../../assets/img/no-image.png';
 
-function Table(props) {
-	const [books, setLivros] = useState([]);
+function Table({handleAddFavorites}) {
+	const { books } = useBookContext();
 	let book;
-
-	useEffect(() => {
-		BookServices.get(props.busca, props.next, 4).then((data) => {
-			setLivros(data.items);
-		});
-	}, [props.busca]);
 
 	return (
 		<div className="container-fluid">
@@ -42,7 +30,7 @@ function Table(props) {
 							(
 								<BookCard
 									key={index}
-									handleFavorites={props.handleFavorites}
+									handleFavorites={handleAddFavorites}
 									id={bookResponse.id}
 									image={book.image}
 									title={book.title}

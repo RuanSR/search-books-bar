@@ -4,6 +4,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-return-assign */
 import React, { useState } from 'react';
+import { useSearchRole } from '../../hooks/useSearchRole';
 
 import {
 	Container,
@@ -20,12 +21,9 @@ import {
 import Table from '../BookTable/Table';
 
 function Books() {
-	const [show, setShow] = useState(false);
-	const [searchField, setSearchField] = useState('');
-	const [next, setNext] = useState(0);
-	const [maxResults] = useState(4);
+  const { searchRole, setSearchRole } = useSearchRole();
 	const [favoriteBooks, setFavoriteBooks] = useState([]);
-
+	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -48,6 +46,12 @@ function Books() {
 		localStorage.removeItem(bookId);
 	};
 
+  const hamdleNextResult = () =>{
+    let newIndex = searchRole.index + searchRole.maxResult;
+    setSearchRole({search: searchRole.search, maxResult: searchRole.maxResult, index: newIndex});
+    console.log(searchRole)
+  };
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -55,7 +59,7 @@ function Books() {
 					<div className="container d-inline-flex">
 						<input
 							onChange={(e) => {
-								setSearchField(e.target.value);
+								setSearchRole({search: e.target.value, maxResult: searchRole.maxResult, index: searchRole.maxResult});
 							}}
 							className="form-control m-2"
 							type="text"
@@ -68,17 +72,12 @@ function Books() {
 				</div>
 				<div className="col-auto">
 					<Table
-						busca={searchField}
-						next={next}
-						maxResults={maxResults}
 						handleFavorites={handleAddFavorites}
 					/>
 					<Button
 						className="m-5"
 						variant="outline-secondary"
-						onClick={() => {
-							setNext(next + maxResults);
-						}}
+						onClick={hamdleNextResult}
 					>
 						Próximos Resultados
 					</Button>
