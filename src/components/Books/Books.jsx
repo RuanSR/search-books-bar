@@ -1,31 +1,19 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-return-assign */
 import React, { useState } from 'react';
 import { useSearchRole } from '../../hooks/useSearchRole';
+import FavoriteModal from '../FavoritesModal/FavoriteModal';
 
-import {
-	Container,
-	Image,
-	Media,
-	CardGroup,
-	Col,
-	Row,
-	Card,
-	Button,
-	Modal,
-} from 'react-bootstrap/';
+import { Button } from 'react-bootstrap/';
 
 import Table from '../BookTable/Table';
 
 function Books() {
-  const { searchRole, setSearchRole } = useSearchRole();
+	const { searchRole, setSearchRole } = useSearchRole();
 	const [favoriteBooks, setFavoriteBooks] = useState([]);
 	const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+
+	const handleModal = () => {
+		setShow(!show);
+	};
 
 	const handleAddFavorites = (bookId) => {
 		const books = [];
@@ -46,11 +34,14 @@ function Books() {
 		localStorage.removeItem(bookId);
 	};
 
-  const hamdleNextResult = () =>{
-    let newIndex = searchRole.index + searchRole.maxResult;
-    setSearchRole({search: searchRole.search, maxResult: searchRole.maxResult, index: newIndex});
-    console.log(searchRole)
-  };
+	const hamdleNextResult = () => {
+		let newIndex = searchRole.index + searchRole.maxResult;
+		setSearchRole({
+			search: searchRole.search,
+			maxResult: searchRole.maxResult,
+			index: newIndex,
+		});
+	};
 
 	return (
 		<div className="container">
@@ -59,21 +50,23 @@ function Books() {
 					<div className="container d-inline-flex">
 						<input
 							onChange={(e) => {
-								setSearchRole({search: e.target.value, maxResult: searchRole.maxResult, index: searchRole.maxResult});
+								setSearchRole({
+									search: e.target.value,
+									maxResult: searchRole.maxResult,
+									index: searchRole.maxResult,
+								});
 							}}
 							className="form-control m-2"
 							type="text"
 							placeholder="Digite o nome do livro"
 						/>
-						<Button variant="outline-success" onClick={handleShow}>
+						<Button variant="outline-success" onClick={handleModal}>
 							Favoritos
 						</Button>
 					</div>
 				</div>
 				<div className="col-auto">
-					<Table
-						handleFavorites={handleAddFavorites}
-					/>
+					<Table handleAddFavorites={handleAddFavorites} />
 					<Button
 						className="m-5"
 						variant="outline-secondary"
@@ -84,72 +77,12 @@ function Books() {
 				</div>
 			</div>
 
-			<Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>Livros Favoritos</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Container>
-						<Row className="justify-content-center">
-							<Col md="auto">
-								{favoriteBooks.map((bookId, index) => (
-									<CardGroup key={index} className="m-3">
-										<Card>
-											<Card.Body>
-												<Media>
-													<Image
-														className="mr-3"
-														src={JSON.parse(localStorage.getItem(bookId)).image}
-														thumbnail
-														alt="thumbnail livro"
-													/>
-													<Media.Body>
-														<h5>Título</h5>
-														<p>
-															{JSON.parse(localStorage.getItem(bookId)).title}
-														</p>
-
-														<h5>Subtítulo</h5>
-														<p>
-															{
-																JSON.parse(localStorage.getItem(bookId))
-																	.subtitle
-															}
-														</p>
-
-														<h5>Publicado em:</h5>
-														<p>
-															{
-																JSON.parse(localStorage.getItem(bookId))
-																	.publishedDate
-															}
-														</p>
-														<p />
-													</Media.Body>
-												</Media>
-											</Card.Body>
-											<Card.Footer>
-												<small className="text-muted">
-													Adicionado ao favoritos em{' '}
-													{JSON.parse(localStorage.getItem(bookId)).addedIn}
-												</small>
-											</Card.Footer>
-											<Button variant="danger" onClick={handleRemoveFavorite}>
-												Remover dos favoritos
-											</Button>
-										</Card>
-									</CardGroup>
-								))}
-							</Col>
-						</Row>
-					</Container>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Fechar
-					</Button>
-				</Modal.Footer>
-			</Modal>
+			<FavoriteModal
+        show={show}
+        closeModal={handleModal}
+        removeFavorite={handleRemoveFavorite}
+        favoritesBooks={favoriteBooks}
+			/>
 		</div>
 	);
 }
