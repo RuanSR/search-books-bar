@@ -4,7 +4,7 @@ import FavoriteModal from '../FavoritesModal/FavoriteModal';
 
 import { Button } from 'react-bootstrap/';
 
-import Table from '../BookTable/Table';
+import BookTable from '../BookTable';
 
 function Books() {
 	const { searchRole, setSearchRole } = useSearchRole();
@@ -46,7 +46,7 @@ function Books() {
 					</div>
 				</div>
 				<div className="col-auto">
-					<Table />
+					<BookTable />
 					<Button
 						className="m-5"
 						variant="outline-secondary"
@@ -57,10 +57,7 @@ function Books() {
 				</div>
 			</div>
 
-			<FavoriteModal
-        show={show}
-        closeModal={handleModal}
-			/>
+			<FavoriteModal show={show} closeModal={handleModal} />
 		</div>
 	);
 }

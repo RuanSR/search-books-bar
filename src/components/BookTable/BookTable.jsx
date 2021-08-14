@@ -5,7 +5,7 @@ import NoImage from '../../assets/img/no-image.png';
 
 import { Book as bookItem } from '../../models/Book';
 
-function Table() {
+function BookTable() {
 	const { books } = useBookContext();
 	let book;
 
@@ -52,4 +52,4 @@ function Table() {
 	);
 }
 
-export default Table;
+export default BookTable;
