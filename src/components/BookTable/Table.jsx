@@ -1,6 +1,6 @@
 import { useBookContext } from '../../hooks/useBookContext';
 
-import BookCard from '../BookCard/BookCard';
+import BookCard from '../BookCard';
 import NoImage from '../../assets/img/no-image.png';
 
 import { Book as bookItem } from '../../models/Book';
