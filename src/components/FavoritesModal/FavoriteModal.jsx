@@ -1,6 +1,3 @@
-import { useMyFavorites } from '../../hooks/useMyFavorites';
-// import {removeFavorite} from '../../Utils/userStorage';
-
 import {
 	Container,
 	Image,
@@ -12,6 +9,8 @@ import {
 	Button,
 	Modal,
 } from 'react-bootstrap/';
+
+import { useMyFavorites } from '../../hooks/useMyFavorites';
 
 function FavoriteModal({
 	show,

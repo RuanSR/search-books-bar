@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useSearchRole } from '../../hooks/useSearchRole';
-import FavoriteModal from '../FavoritesModal/FavoriteModal';
-
 import { Button } from 'react-bootstrap/';
 
+import { useSearchRole } from '../../hooks/useSearchRole';
+
+import FavoriteModal from '../FavoritesModal/FavoriteModal';
 import BookTable from '../BookTable';
 
 function Books() {

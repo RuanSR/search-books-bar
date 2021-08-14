@@ -1,5 +1,3 @@
-import { useMyFavorites } from '../../hooks/useMyFavorites';
-
 import {
 	Container,
 	Image,
@@ -10,7 +8,9 @@ import {
 	Modal,
 } from 'react-bootstrap/';
 
-function BookDetails({ show, handleClose, book }) {
+import { useMyFavorites } from '../../hooks/useMyFavorites';
+
+function BookDetailsModal({ show, handleClose, book }) {
 	const { addFavorite } = useMyFavorites();
 
 	const handleOnFavorite = () => {
@@ -63,4 +63,4 @@ function BookDetails({ show, handleClose, book }) {
 	);
 }
 
-export default BookDetails;
+export default BookDetailsModal;

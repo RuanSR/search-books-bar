@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import React, { useState } from 'react';
-import BookDetails from '../BookDetails/BookDetails';
-
+import React, { Fragment, useState } from 'react';
 import { Image, Card, Button } from 'react-bootstrap/';
+
+import BookDetailsModal from '../BookDetailsModal/BookDetailsModal';
 
 function BookCard({ book }) {
 	const [show, setShow] = useState(false);
@@ -11,7 +10,7 @@ function BookCard({ book }) {
 	const handleShow = () => setShow(true);
 
 	return (
-		<>
+		<Fragment>
 			<Card style={{ maxWidth: '15rem' }}>
 				<Image
 					variant="top"
@@ -33,9 +32,8 @@ function BookCard({ book }) {
 					</Button>
 				</Card.Body>
 			</Card>
-
-			<BookDetails show={show} handleClose={handleClose} book={book} />
-		</>
+			<BookDetailsModal show={show} handleClose={handleClose} book={book} />
+		</Fragment>
 	);
 }
 
