@@ -1,15 +1,14 @@
 import React from 'react';
 
 import BookIcon from '@material-ui/icons/LibraryBooksTwoTone';
-import { useStyles } from './styles';
+import { HeaderContent } from './styles';
 
 function Header() {
-	const classes = useStyles();
 	return (
-		<header className={classes.header}>
-			<h1 className={classes.customTitle}>Search Book</h1>
-			<BookIcon className={classes.bookIcon} />
-		</header>
+		<HeaderContent>
+			<h1>Search Book</h1>
+      <BookIcon />
+		</HeaderContent>
 	);
 }
 
