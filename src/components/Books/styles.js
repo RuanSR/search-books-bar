@@ -48,16 +48,9 @@ export const SearchBox = styled.div`
     }
   }
 
-
-
 `
 
-export const BookList = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  button{
+export const Button = styled.button`
     width: auto;
     height: 2.5rem;
     padding: 0.5rem;
@@ -69,6 +62,5 @@ export const BookList = styled.div`
     &:hover{
       filter: brightness(0.9);
     }
-  }
 
 `
