@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap/';
 
 import { useSearchRole } from '../../hooks/useSearchRole';
 
 import FavoriteModal from '../FavoritesModal/FavoriteModal';
 import BookTable from '../BookTable';
+
+import { ContainerItens, SearchBox, BookList } from './styles';
 
 function Books() {
 	const { searchRole, setSearchRole } = useSearchRole();
@@ -25,37 +26,32 @@ function Books() {
 
 	return (
 		<div className="container">
-			<div className="row justify-content-center">
-				<div className="col-auto ">
-					<div className="container d-inline-flex">
-						<input
-							onChange={(e) => {
-								setSearchRole({
-									search: e.target.value,
-									maxResult: searchRole.maxResult,
-									index: searchRole.maxResult,
-								});
-							}}
-							className="form-control m-2"
-							type="text"
-							placeholder="Digite o nome do livro"
-						/>
-						<Button variant="outline-success" onClick={handleModal}>
-							Favoritos
-						</Button>
-					</div>
-				</div>
-				<div className="col-auto">
+			<ContainerItens>
+				<SearchBox>
+          <input
+            onChange={(e) => {
+              setSearchRole({
+                search: e.target.value,
+                maxResult: searchRole.maxResult,
+                index: searchRole.maxResult,
+              });
+            }}
+            type="text"
+            placeholder="Digite o nome do livro"
+          />
+          <button onClick={handleModal}>
+            Favoritos
+          </button>
+				</SearchBox>
+				<BookList>
 					<BookTable />
-					<Button
-						className="m-5"
-						variant="outline-secondary"
+					<button
 						onClick={hamdleNextResult}
 					>
 						Próximos Resultados
-					</Button>
-				</div>
-			</div>
+					</button>
+				</BookList>
+			</ContainerItens>
 
 			<FavoriteModal show={show} closeModal={handleModal} />
 		</div>

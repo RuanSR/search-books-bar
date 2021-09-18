@@ -6,6 +6,8 @@ export const GlobalStyle = createGlobalStyle`
     --btn-info-background: #17a2b8;
     --btn-success-background: #28a745;
 
+    --text-color-default: #ffffff;
+
     --top-bar-background: #343a40;
   }
 
@@ -40,5 +42,13 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+
+  .container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
   }
 `;
