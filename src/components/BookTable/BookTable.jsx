@@ -1,52 +1,57 @@
+import { useState } from 'react';
+
+import { Card } from '../Card/Card';
+import BookDetailsModal from '../BookDetailsModal/BookDetailsModal';
+
 import { useBookContext } from '../../hooks/useBookContext';
 
-import BookCard from '../BookCard';
 import NoImage from '../../assets/img/no-image.png';
-
-import { Book as bookItem } from '../../models/Book';
 
 import { BookList } from './styles';
 
 function BookTable() {
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
 	const { books } = useBookContext();
 	let book;
 
 	return (
-		<BookList>
-			{books?.map(
-				(bookResponse, index) => (
-					(book = {
-						image: bookResponse.volumeInfo.imageLinks
-							? bookResponse.volumeInfo.imageLinks.thumbnail
-							: NoImage,
-						title: bookResponse.volumeInfo.title
-							? bookResponse.volumeInfo.title
-							: 'Sem título',
-						subtitle: bookResponse.volumeInfo.subtitle
-							? bookResponse.volumeInfo.subtitle
-							: 'Sem subtitulo',
-						description: bookResponse.volumeInfo.description
-							? bookResponse.volumeInfo.description
-							: 'Sem descrição',
-					}),
-					(
-						<BookCard
-							key={index}
-							book={
-								new bookItem(
-									bookResponse.id,
-									book.image,
-									book.title,
-									book.subtitle,
-									book.description,
-									bookResponse.volumeInfo.publishedDate
-								)
-							}
-						/>
+		<>
+			<BookList>
+				{books?.map(
+					(bookResponse, index) => (
+						(book = {
+							image: bookResponse.volumeInfo.imageLinks
+								? bookResponse.volumeInfo.imageLinks.thumbnail
+								: NoImage,
+							title: bookResponse.volumeInfo.title
+								? bookResponse.volumeInfo.title
+								: 'Sem título',
+							subtitle: bookResponse.volumeInfo.subtitle
+								? bookResponse.volumeInfo.subtitle
+								: 'Sem subtitulo',
+							description: bookResponse.volumeInfo.description
+								? bookResponse.volumeInfo.description
+								: 'Sem descrição',
+						}),
+						(
+							<Card
+								key={index}
+								thumbnailImage={book.image}
+								CardTitle={book.title}
+								CardText={book.subtitle}
+								PublishedDate={bookResponse.volumeInfo.publishedDate}
+								clickAction={handleShow}
+							/>
+						)
 					)
-				)
-			)}
-		</BookList>
+				)}
+			</BookList>
+			{book !== undefined && <BookDetailsModal show={show} handleClose={handleClose} book={book} /> }
+		</>
 	);
 }
 

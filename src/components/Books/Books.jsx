@@ -5,7 +5,7 @@ import { useSearchRole } from '../../hooks/useSearchRole';
 import FavoriteModal from '../FavoritesModal/FavoriteModal';
 import BookTable from '../BookTable';
 
-import { ContainerItens, SearchBox, Button } from './styles';
+import { ContainerItens, SearchBox, Button, ContainerBottom } from './styles';
 
 function Books() {
 	const { searchRole, setSearchRole } = useSearchRole();
@@ -44,11 +44,13 @@ function Books() {
           </button>
 				</SearchBox>
         <BookTable />
-        <Button
-          onClick={hamdleNextResult}
-        >
-          Próximos Resultados
-        </Button>
+        <ContainerBottom>
+          <Button
+            onClick={hamdleNextResult}
+          >
+            Próximos Resultados
+          </Button>
+        </ContainerBottom>
 			</ContainerItens>
 
 			<FavoriteModal show={show} closeModal={handleModal} />

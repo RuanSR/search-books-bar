@@ -13,12 +13,6 @@ export const SearchBox = styled.div`
   align-items: center;
   margin: 1rem;
 
-  /* div{
-    width: 100%;
-    display: flex;
-    align-items: center;
-  } */
-
   input{
     width: 70%;
     padding: 0 1.5rem;
@@ -63,4 +57,9 @@ export const Button = styled.button`
       filter: brightness(0.9);
     }
 
+`
+
+export const ContainerBottom = styled.div `
+    width: 100%;
+    margin: 1rem 1rem;
 `
